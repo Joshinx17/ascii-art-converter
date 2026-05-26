@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "ASCII Art Converter"
+version = "1.0.0"
+id = "artifacts/ascii-converter"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20842
+
+[services.development]
+run = "pnpm --filter @workspace/ascii-converter run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ascii-converter", "run", "build" ]
+publicDir = "artifacts/ascii-converter/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20842"
+BASE_PATH = "/"
